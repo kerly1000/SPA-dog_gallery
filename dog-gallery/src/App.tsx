@@ -9,19 +9,19 @@ type Dog = {
 
 function App() {
   const [dogs, setDogs] = useState<Dog[]>([
-    { id: 1, name: "Floki", image: "/images/bullu.jpg", liked: false },
-    { id: 2, name: "Juss", image: "/images/juss.jpg", liked: false },
-    { id: 3, name: "Tibu", image: "/images/juss2.jpg", liked: false },
-    { id: 4, name: "Tulnukas", image: "/images/bull1.jpg", liked: false },
-    { id: 5, name: "Clown", image: "/images/bull2.webp", liked: false },
-    { id: 6, name: "Alien", image: "/images/bull3.webp", liked: false },
-    { id: 7, name: "Ploki", image: "/images/bull4.jpg", liked: false },
-    { id: 8, name: "Troll", image: "/images/bull5.jpg", liked: false },
-    { id: 9, name: "Draakon", image: "/images/bull6.jpg", liked: false },
-    { id: 10, name: "Santa", image: "/images/dogo1.webp", liked: false },
-    { id: 11, name: "Claus", image: "/images/dogo2.webp", liked: false },
-    { id: 12, name: "Snow White", image: "/images/juss4.jpg", liked: false },
-    { id: 13, name: "Show White", image: "/images/dogo4.jpg", liked: false },
+    { id: 1, name: "Floki", image: "images/bullu.jpg", liked: false },
+    { id: 2, name: "Juss", image: "images/juss.jpg", liked: false },
+    { id: 3, name: "Tibu", image: "images/juss2.jpg", liked: false },
+    { id: 4, name: "Tulnukas", image: "images/bull1.jpg", liked: false },
+    { id: 5, name: "Clown", image: "images/bull2.webp", liked: false },
+    { id: 6, name: "Alien", image: "images/bull3.webp", liked: false },
+    { id: 7, name: "Ploki", image: "images/bull4.jpg", liked: false },
+    { id: 8, name: "Troll", image: "images/bull5.jpg", liked: false },
+    { id: 9, name: "Draakon", image: "images/bull6.jpg", liked: false },
+    { id: 10, name: "Santa", image: "images/dogo1.webp", liked: false },
+    { id: 11, name: "Claus", image: "images/dogo2.webp", liked: false },
+    { id: 12, name: "Snow White", image: "images/juss4.jpg", liked: false },
+    { id: 13, name: "Show White", image: "images/dogo4.jpg", liked: false },
   ]);
 
   const [filter, setFilter] = useState<"all" | "liked">("all");
