@@ -107,35 +107,40 @@ return (
     </div>
 
     {/* SLIDER */}
-<div className="overflow-hidden w-full h-[600px] max-w-4x1 mx-auto rounded-2xl shadow-lg">
-  <div
-    className="flex transition-transform duration-700 ease-in-out"
-    style={{
-      transform: `translateX(-${current * 100}%)`,
-    }}
-  >
-    {filteredDogs.map((dog) => (
-  <div key={dog.id} className="relative w-full h-[600px] flex-shrink-0 
-    ">
-    
-    <img
-      src={dog.image}
-      className="w-full h-[600px] object-cover transition-opacity duration-700"
-    />
-
-    {/* ❤️ LIKE BUTTON */}
-    <button
-      onClick={() => toggleLike(dog.id)}
-      className="absolute top-4 right-4 text-2xl bg-white/80 backdrop-blur px-3 py-1 rounded-full 
-              hover:scale-110 transition shadow"
+{filteredDogs.length === 0 ? (
+  <p className="text-center mt-10 text-gray-500 text-lg">
+    No Favorites! Go and pick some ❤️
+  </p>
+) : (
+  <div className="overflow-hidden w-full h-[600px] max-w-4xl mx-auto rounded-2xl shadow-lg">
+    <div
+      className="flex transition-transform duration-700 ease-in-out"
+      style={{
+        transform: `translateX(-${current * 100}%)`,
+      }}
     >
-      {dog.liked ? "❤️" : "🤍"}
-    </button>
+      {filteredDogs.map((dog) => (
+        <div
+          key={dog.id}
+          className="relative w-full h-[600px] flex-shrink-0"
+        >
+          <img
+            src={dog.image}
+            className="w-full h-[600px] object-cover transition-opacity duration-700"
+          />
 
+          {/* ❤️ LIKE BUTTON */}
+          <button
+            onClick={() => toggleLike(dog.id)}
+            className="absolute top-4 right-4 text-3xl bg-white/70 rounded-full px-3 py-1 hover:scale-110 transition"
+          >
+            {dog.liked ? "❤️" : "🤍"}
+          </button>
+        </div>
+      ))}
+    </div>
   </div>
-))}
-  </div>
-</div>
+)}
 
   </div>
 );
