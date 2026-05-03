@@ -9,7 +9,7 @@ type Dog = {
 
 function App() {
   const [dogs, setDogs] = useState<Dog[]>([
-    { id: 1, name: "Floki", image: "/public/images/bullu.jpg", liked: false },
+    { id: 1, name: "Floki", image: "/images/bullu.jpg", liked: false },
     { id: 2, name: "Juss", image: "/images/juss.jpg", liked: false },
     { id: 3, name: "Tibu", image: "/images/juss2.jpg", liked: false },
     { id: 4, name: "Tulnukas", image: "/images/bull1.jpg", liked: false },
@@ -20,6 +20,7 @@ function App() {
     { id: 9, name: "Draakon", image: "/images/bull6.jpg", liked: false },
     { id: 10, name: "Santa", image: "/images/dogo1.webp", liked: false },
     { id: 11, name: "Claus", image: "/images/dogo2.webp", liked: false },
+    { id: 12, name: "Snow White", image: "/images/juss4.jpg", liked: false },
     { id: 13, name: "Show White", image: "/images/dogo4.jpg", liked: false },
   ]);
 
@@ -31,6 +32,10 @@ function App() {
     ));
   };
 
+  const [view, setView] = useState<"slider" | "grid">("slider");
+
+  const [darkMode, setDarkMode] = useState(false);
+
   const filteredDogs =
     filter === "liked"
       ? dogs.filter(d => d.liked)
@@ -40,50 +45,100 @@ function App() {
 
 useEffect(() => {
   const interval = setInterval(() => {
-    setCurrent(prev => (prev + 1) % dogs.length);
+    setCurrent(prev =>
+      filteredDogs.length === 0
+        ? 0
+        : (prev + 1) % filteredDogs.length
+    );
   }, 3000);
 
   return () => clearInterval(interval);
-}, [dogs.length]);    
+}, [filteredDogs.length]);  
 
 return (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold mb-4">Prettiest Breed Gallery</h1>
+<div className={`
+  min-h-screen p-8 transition-colors duration-500
+  ${darkMode 
+    ? "bg-neutral-900 text-gray-200" 
+    : "bg-gray-100 text-gray-800"}
+`}>
+    <div className="flex justify-between items-center mb-8">
+      <h1 className="text-4xl font-bold tracking-tight">
+        Prettiest Breed Gallery
+      </h1>
+
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        className={`px-4 py-2 rounded-xl transition ${
+          darkMode 
+            ? "bg-gray-700 hover:bg-gray-600" 
+            : "bg-gray-300 hover:bg-gray-400"
+        }`}
+      >
+        {darkMode ? "Light" : "Dark"}
+      </button>
+    </div>
 
     {/* FILTER */}
-    <div className="mb-4 flex gap-2">
+    <div className="mb-6 flex gap-3">
       <button
         onClick={() => setFilter("all")}
-        className="px-4 py-2 bg-gray-200 rounded"
+        className={`px-4 py-2 rounded-xl transition ${
+          filter === "all"
+            ? "bg-blue-500 text-white"
+            : darkMode
+            ? "bg-gray-700"
+            : "bg-gray-200"
+        }`}
       >
-        Kõik
+        All
       </button>
 
       <button
         onClick={() => setFilter("liked")}
-        className="px-4 py-2 bg-pink-200 rounded"
+        className={`px-4 py-2 rounded-xl transition ${
+          filter === "liked"
+            ? "bg-pink-500 text-white"
+            : darkMode
+            ? "bg-gray-700"
+            : "bg-pink-200"
+        }`}
       >
-        ❤️ Lemmikud
+        ❤️ Favorites
       </button>
     </div>
 
     {/* SLIDER */}
-    <div className="overflow-hidden w-full h-[600px] max-w-4x1 mx-auto rounded-2xl shadow-lg">
+<div className="overflow-hidden w-full h-[600px] max-w-4x1 mx-auto rounded-2xl shadow-lg">
   <div
-    className="flex transition-transform duration-700"
+    className="flex transition-transform duration-700 ease-in-out"
     style={{
       transform: `translateX(-${current * 100}%)`,
     }}
   >
-    {dogs.map((dog) => (
-      <img
-        key={dog.id}
-        src={dog.image}
-        className="w-full h-[600px] object-cover flex-shrink-0"
-      />
-    ))}
+    {filteredDogs.map((dog) => (
+  <div key={dog.id} className="relative w-full h-[600px] flex-shrink-0 
+    ">
+    
+    <img
+      src={dog.image}
+      className="w-full h-[600px] object-cover transition-opacity duration-700"
+    />
+
+    {/* ❤️ LIKE BUTTON */}
+    <button
+      onClick={() => toggleLike(dog.id)}
+      className="absolute top-4 right-4 text-2xl bg-white/80 backdrop-blur px-3 py-1 rounded-full 
+              hover:scale-110 transition shadow"
+    >
+      {dog.liked ? "❤️" : "🤍"}
+    </button>
+
+  </div>
+))}
   </div>
 </div>
+
   </div>
 );
 }
