@@ -32,8 +32,6 @@ function App() {
     ));
   };
 
-  const [view, setView] = useState<"slider" | "grid">("slider");
-
   const [darkMode, setDarkMode] = useState(false);
 
   const filteredDogs =
